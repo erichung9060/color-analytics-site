@@ -120,7 +120,7 @@ export default function Home() {
         };
         
         runTextAnalysis();
-    }, [textAnalysisDone]);
+    }, [isAnalyzing, textAnalysisDone, selectedFile, customColors]);
     
     // Image Analysis
     useEffect(() => {
@@ -154,7 +154,7 @@ export default function Home() {
         };
         
         runImageAnalysis();
-    }, [imageAnalysisDone]);
+    }, [isAnalyzing, imageAnalysisDone, selectedFile, userPrompt]);
 
     useEffect(() => {
         setResult('');

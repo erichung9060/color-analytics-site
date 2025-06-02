@@ -9,7 +9,7 @@ cd frontend
 npm install
 
 # Start development server
-sudo npm run dev
+npm run dev
 ```
 
 ### Backend (3001 port)
