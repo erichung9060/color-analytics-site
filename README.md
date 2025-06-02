@@ -2,7 +2,7 @@
 
 ## Setup Instructions
 
-### Frontend (80 port)
+### Frontend (3000 port)
 ```bash
 # Install dependencies
 cd frontend
