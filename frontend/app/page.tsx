@@ -24,8 +24,16 @@ interface OutfitImages {
 }
 
 export default function Home() {
-    const ANALYZE_API = "http://localhost:3001";
-    // const ANALYZE_API = "https://api.coloranalysis.fun";
+    const getApiUrl = () => {
+        if (typeof window !== 'undefined') {
+            return window.location.hostname === 'coloranalysis.fun'
+                ? 'https://api.coloranalysis.fun'
+                : 'http://localhost:3001';
+        }
+        return 'http://localhost:3001'; // Default for server-side rendering
+    };
+
+    const ANALYZE_API = getApiUrl();
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [preview, setPreview] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
