@@ -98,7 +98,7 @@ export default function ChatWidget({
                 setResultMessage('Your personalized outfit is displayed on the left');
             }
         }
-    }, [isAnalyzing, chatHistory, error]);
+    }, [isAnalyzing, chatHistory, error, setResultMessage]);
 
     const toggleChat = (): void => {
         setOpen(!open);
