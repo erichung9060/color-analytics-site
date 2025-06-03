@@ -52,7 +52,7 @@ export default function Home() {
     };
 
     const ANALYZE_API = getApiUrl();
-    
+
     // Text Analysis
     useEffect(() => { 
         const runTextAnalysis = async () => {
@@ -618,6 +618,7 @@ export default function Home() {
                     setImageAnalysisDone={setImageAnalysisDone}
                     setUserPrompt={setUserPrompt}
                     isAnalyzing={isAnalyzing}
+                    error={error}
                 />
             </Box>
         </Container>

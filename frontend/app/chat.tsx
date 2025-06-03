@@ -38,6 +38,7 @@ interface ChatWidgetProps {
     setImageAnalysisDone: (imageAnalysisDone: boolean) => void;
     setUserPrompt: (userPrompt: string[]) => void;
     isAnalyzing: boolean;
+    error: string;
 }
 
 export default function ChatWidget({ 
@@ -49,7 +50,8 @@ export default function ChatWidget({
     setIsAnalyzing,
     setImageAnalysisDone,
     setUserPrompt,
-    isAnalyzing
+    isAnalyzing,
+    error
 }: ChatWidgetProps) {
     const [open, setOpen] = useState<boolean>(false);
     const [chatmessage, setchatMessage] = useState<string>('');
@@ -82,15 +84,21 @@ export default function ChatWidget({
     }, [chatHistory]);
 
     useEffect(() => {
-        if (!isAnalyzing && chatHistory.length > 0 && 
-            chatHistory[chatHistory.length - 1].content.startsWith('Generating')) {
-            setChatHistory((prevHistory) => [
-                ...prevHistory,
-                { role: 'assistant', content: 'Generation complete' },
-            ]);
-            setResultMessage('Your personalized outfit is displayed on the left');
+        if (!isAnalyzing && chatHistory.length > 0 && chatHistory[chatHistory.length - 1].content.startsWith('Generating')) {
+            if (error) {
+                setChatHistory((prevHistory) => [
+                    ...prevHistory,
+                    { role: 'assistant', content: `Error: ${error}` },
+                ]);
+            } else {
+                setChatHistory((prevHistory) => [
+                    ...prevHistory,
+                    { role: 'assistant', content: 'Generation complete' },
+                ]);
+                setResultMessage('Your personalized outfit is displayed on the left');
+            }
         }
-    }, [isAnalyzing, chatHistory, setResultMessage]);
+    }, [isAnalyzing, chatHistory, error]);
 
     const toggleChat = (): void => {
         setOpen(!open);
