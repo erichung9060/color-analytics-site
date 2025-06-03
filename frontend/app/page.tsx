@@ -24,17 +24,8 @@ interface OutfitImages {
 }
 
 export default function Home() {
-    const getApiUrl = () => {
-        if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
-            return 'http://localhost:3001';
-        }
-        return 'https://api.coloranalysis.fun';
-    };
-
-    const ANALYZE_API = getApiUrl();
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [preview, setPreview] = useState<string>('');
-    const [loading, setLoading] = useState<boolean>(false);
     const [result, setResult] = useState<string>('');
     const [isCameraActive, setIsCameraActive] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
@@ -47,11 +38,20 @@ export default function Home() {
     const videoRef = useRef<HTMLVideoElement>(null);
     const [userPrompt, setUserPrompt] = useState<string[] | null>(null);
 
-    const [isAnalyzing, setIsAnalyzing] = useState(true);
+    const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [textAnalysisDone, setTextAnalysisDone] = useState(true);
     const [imageAnalysisDone, setImageAnalysisDone] = useState(true);
 
     const router = useRouter();
+    
+    const getApiUrl = () => {
+        if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
+            return 'http://localhost:3001';
+        }
+        return 'https://api.coloranalysis.fun';
+    };
+
+    const ANALYZE_API = getApiUrl();
     
     // Text Analysis
     useEffect(() => { 
@@ -123,6 +123,7 @@ export default function Home() {
                 setImageAnalysisDone(false);
             } catch (error) {
                 setError(error instanceof Error ? error.message : 'Unknown Error');
+                setIsAnalyzing(false);
             }
             setTextAnalysisDone(true);
         };
@@ -155,9 +156,9 @@ export default function Home() {
                 setSelectedStyle(data.images[0].style);
             } catch (error) {
                 setError(error instanceof Error ? error.message : 'Unknown Error');
+                setIsAnalyzing(false);
             }
             setImageAnalysisDone(true);
-            setLoading(false);
             setIsAnalyzing(false);
         };
         
@@ -261,8 +262,6 @@ export default function Home() {
             setError('Image file not found');
             return;
         }
-
-        setLoading(true);
 
         setResult('');
         setColors(null);
@@ -431,14 +430,14 @@ export default function Home() {
                         <Button
                             variant="contained"
                             fullWidth
-                            disabled={!selectedFile || loading}
+                            disabled={!selectedFile || isAnalyzing}
                             onClick={handleAnalyze}
                             sx={{ textTransform: 'none' }} 
                         >
                             Start Analysis
                         </Button>
                     </Stack>
-                    {loading ? (
+                    {isAnalyzing ? (
                         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 8 }}>
                             <CircularProgress />
                             <Typography sx={{ mt: 2 }}>Analyzing, please wait...</Typography>
@@ -615,7 +614,6 @@ export default function Home() {
                     selectedFile={selectedFile} 
                     setResultMessage={setMessage}
                     setSelectedStyle={setSelectedStyle}
-                    setLoading={setLoading}
                     setIsAnalyzing={setIsAnalyzing}
                     setImageAnalysisDone={setImageAnalysisDone}
                     setUserPrompt={setUserPrompt}

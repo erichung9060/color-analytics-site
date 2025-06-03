@@ -19,6 +19,15 @@ export default function VirtualTryOn() {
     const [error, setError] = useState<string>('');
     const [selectedGarmentType, setSelectedGarmentType] = useState<string | null>(null);
 
+    const getApiUrl = () => {
+        if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
+            return 'http://localhost:3001';
+        }
+        return 'https://api.coloranalysis.fun';
+    };
+
+    const ANALYZE_API = getApiUrl();
+    
     const handleBodyImageSelect = (event: React.ChangeEvent<HTMLInputElement>): void => {
         const file = event.target.files?.[0];
         event.target.value = '';
@@ -90,7 +99,7 @@ export default function VirtualTryOn() {
         formData.append('garment_type', selectedGarmentType);
 
         try {
-            const response = await fetch('https://api.coloranalysis.fun/virtual-tryon', {
+            const response = await fetch(`${ANALYZE_API}/virtual-tryon`, {
                 method: 'POST',
                 body: formData,
             });

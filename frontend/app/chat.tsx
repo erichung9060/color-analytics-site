@@ -34,7 +34,6 @@ interface ChatWidgetProps {
     selectedFile: File | null;
     setResultMessage: (message: string) => void;
     setSelectedStyle: (selectedStyle: string | null) => void;
-    setLoading: (loading: boolean) => void;
     setIsAnalyzing: (isAnalyzing: boolean) => void;
     setImageAnalysisDone: (imageAnalysisDone: boolean) => void;
     setUserPrompt: (userPrompt: string[]) => void;
@@ -47,7 +46,6 @@ export default function ChatWidget({
     selectedFile,
     setResultMessage,
     setSelectedStyle,
-    setLoading,
     setIsAnalyzing,
     setImageAnalysisDone,
     setUserPrompt,
@@ -130,8 +128,6 @@ export default function ChatWidget({
                 ...prevHistory,
                 { role: 'assistant', content: `Generating${loadingDots}` },
             ]);
-
-            setLoading(true);
     
             setError('');
             setOutfitImage(null);
