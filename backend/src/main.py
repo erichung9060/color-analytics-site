@@ -8,7 +8,7 @@ import os
 from datetime import datetime
 from dotenv import load_dotenv
 from color import get_color
-from typing import Optional, List
+from typing import Optional
 import json
 import base64
 from gemini import get_analysis_result, get_outfit_prompt
@@ -133,6 +133,7 @@ async def virtual_tryon(
         raise HTTPException(status_code=500, detail=error)
     
 if __name__ == "__main__":
+    print("Test CICD")
     import uvicorn
     try:
         uvicorn.run(
@@ -143,4 +144,3 @@ if __name__ == "__main__":
         )
     except Exception as e:
         print(f"Startup failed: {e}")
-
