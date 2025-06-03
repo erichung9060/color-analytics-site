@@ -25,12 +25,10 @@ interface OutfitImages {
 
 export default function Home() {
     const getApiUrl = () => {
-        if (typeof window !== 'undefined') {
-            return window.location.hostname === 'coloranalysis.fun'
-                ? 'https://api.coloranalysis.fun'
-                : 'http://localhost:3001';
+        if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
+            return 'http://localhost:3001';
         }
-        return 'http://localhost:3001'; // Default for server-side rendering
+        return 'https://api.coloranalysis.fun';
     };
 
     const ANALYZE_API = getApiUrl();
