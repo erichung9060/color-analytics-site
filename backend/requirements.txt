@@ -1,4 +1,3 @@
-dlib-binary==19.21.99
 fastapi
 gradio_client
 numpy
