@@ -24,6 +24,8 @@ interface OutfitImages {
 }
 
 export default function Home() {
+    const ANALYZE_API = "http://localhost:3001";
+    // const ANALYZE_API = "https://api.coloranalysis.fun";
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [preview, setPreview] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
@@ -59,7 +61,7 @@ export default function Home() {
             }
             
             try {
-                const response = await fetch(`https://api.coloranalysis.fun/analyze/text`, {
+                const response = await fetch(`${ANALYZE_API}/analyze/text`, {
                     method: 'POST',
                     body: formData,
                 });
@@ -135,7 +137,7 @@ export default function Home() {
             }
 
             try {
-                const { data } = await axios.post(`https://api.coloranalysis.fun/analyze/image`, formData);
+                const { data } = await axios.post(`${ANALYZE_API}/analyze/image`, formData);
 
                 const outfitImages: OutfitImages = {};
                 data.images.forEach((item: { style: string; image: string }) => {
