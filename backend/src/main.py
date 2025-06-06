@@ -133,7 +133,6 @@ async def virtual_tryon(
         raise HTTPException(status_code=500, detail=error)
     
 if __name__ == "__main__":
-    print("Test CICD")
     import uvicorn
     try:
         uvicorn.run(
