@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
 import { useEffect } from 'react';
 import Clarity from '@microsoft/clarity';
 
 interface ClarityInitProps {
-  clarityId: string;
+	clarityId: string;
 }
 
 export default function MicrosoftClarity({ clarityId }: ClarityInitProps) {
-  useEffect(() => {
-    Clarity.init(clarityId);
-  }, [clarityId]);
+	useEffect(() => {
+		Clarity.init(clarityId);
+	}, [clarityId]);
 
-  return null;
-} 
+	return null;
+}
