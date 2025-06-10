@@ -17,8 +17,12 @@ from flux import generate_image_from_flux
 from leffa import predict_virtual_tryon
 
 load_dotenv()
-LoRA = ["cargopants3", "preppy-000003", "japan128"]
-LoRA_Prompt = ["cargopants_style", "preppy style", "jpstyle"]
+LoRA = [
+    {"model": "cargopants3", "prompt": "cargopants_style", "style": "Cargo Pants Style"},
+    {"model": "preppy-000003", "prompt": "preppy style", "style": "Preppy Style"},
+    {"model": "japan128", "prompt": "jpstyle", "style": "Japan Style"},
+    {"model": "cottagecore3", "prompt": "cottagecore_style", "style": "Cottagecore Style"}
+]
 
 app = FastAPI()
 app.add_middleware(
@@ -97,7 +101,7 @@ async def analyze_image(
         print(outfit_prompt)
 
         outfit_image =  await generate_image_from_flux(outfit_prompt)
-        outfit_image += await generate_image_from_sd(outfit_prompt, LoRA, LoRA_Prompt)
+        outfit_image += await generate_image_from_sd(outfit_prompt, LoRA)
         
         outfit_image_changed_face = await change_face_from_sd(outfit_image, face_base64)
         

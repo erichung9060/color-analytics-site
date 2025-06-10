@@ -9,17 +9,17 @@ def get_error_img():
         image = base64_encoded_data.decode('utf-8')
         return image
     
-async def generate_image_from_sd(prompt, LoRA, LoRA_Prompt):
+async def generate_image_from_sd(prompt, LoRA):
     results = []
-    for lora, lora_prompt in zip(LoRA, LoRA_Prompt):
+    for lora in LoRA:
         print("generating image from sd: ", lora)
-        if lora == "nolora":
+        if lora["model"] == "nolora":
             image = await prompt_to_image(prompt)
         else:
-            image = await prompt_to_image(f"{lora_prompt}, " + prompt + f", <lora:{lora}:1>")
+            image = await prompt_to_image(f"{lora['prompt']}, " + prompt + f", <lora:{lora['model']}:1>")
 
         results.append({
-            "style": f"{lora} style",
+            "style": lora['style'],
             "image": image
         })
     return results
