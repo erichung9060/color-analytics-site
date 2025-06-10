@@ -1,5 +1,11 @@
 # Korean Personal Color Analytics
 
+## Quick Start
+```bash
+docker compose up
+```
+
+
 ## Setup Instructions
 
 ### Frontend (3000 port)
