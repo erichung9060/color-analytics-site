@@ -114,10 +114,6 @@ async def analyze_image(
         print(error)
         raise HTTPException(status_code=500, detail=error)
 
-@app.get("/hello")
-async def hello():
-    return "hello world"
-
 @app.post("/virtual-tryon")
 async def virtual_tryon(
     body_image: UploadFile = File(...),
@@ -139,7 +135,13 @@ async def virtual_tryon(
         error = f"Error: {str(e)}"
         print(error)
         raise HTTPException(status_code=500, detail=error)
-    
+
+
+@app.get("/hello")
+@app.head("/hello")
+async def hello():
+    return "hello world"
+
 if __name__ == "__main__":
     import uvicorn
     try:
