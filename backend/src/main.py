@@ -114,6 +114,10 @@ async def analyze_image(
         print(error)
         raise HTTPException(status_code=500, detail=error)
 
+@app.get("/hello")
+async def hello():
+    return "hello world"
+
 @app.post("/virtual-tryon")
 async def virtual_tryon(
     body_image: UploadFile = File(...),
