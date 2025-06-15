@@ -137,10 +137,10 @@ async def virtual_tryon(
         raise HTTPException(status_code=500, detail=error)
 
 
-@app.get("/hello")
-@app.head("/hello")
-async def hello():
-    return "hello world"
+@app.get("/health")
+@app.head("/health")
+async def health():
+    return "ok"
 
 if __name__ == "__main__":
     import uvicorn
