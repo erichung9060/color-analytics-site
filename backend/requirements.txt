@@ -1,4 +1,4 @@
-dlib-bin==19.24.6
+dlib-bin
 fastapi
 gradio_client
 numpy
